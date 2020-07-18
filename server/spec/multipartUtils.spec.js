@@ -1,6 +1,6 @@
-const fs = require('fs');
-const path = require('path');
-const expect = require('chai').expect;
+var fs = require('fs');
+var path = require('path');
+var expect = require('chai').expect;
 
 const multipart = require('../js/multipartUtils');
 

@@ -1,10 +1,28 @@
-(function() {
+(function () {
 
   const serverUrl = 'http://127.0.0.1:3000';
 
   //
   // TODO: build the swim command fetcher here
   //
+
+  // TEST SERVER RESPONSE:
+  var fetchRandomSwimmer = (success, errorCB) => {
+    $.ajax({
+      url: serverUrl,
+      type: 'GET',
+      success: success,
+      error: errorCB || function (error) {
+        console.error('Failed to fetch command', error);
+      }
+    });
+  }
+
+  var callbackForRandomSwimmer = (data) => {
+    SwimTeam.move(data);
+  }
+
+  setInterval(() => (fetchRandomSwimmer(callbackForRandomSwimmer)), 10000);
 
   /////////////////////////////////////////////////////////////////////
   // The ajax file uplaoder is provided for your convenience!
@@ -17,7 +35,7 @@
     $.ajax({
       type: 'POST',
       data: formData,
-      url: 'FILL_ME_IN',
+      url: serverUrl,
       cache: false,
       contentType: false,
       processData: false,
@@ -28,7 +46,7 @@
     });
   };
 
-  $('form').on('submit', function(e) {
+  $('form').on('submit', function (e) {
     e.preventDefault();
 
     var form = $('form .file')[0];

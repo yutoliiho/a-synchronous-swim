@@ -12,9 +12,16 @@ const isValidMessage = (message) => {
   return _.contains(validMessages, message);
 };
 
+// Random Message Generator:
+module.exports.getRandomMessage = function () {
+  var randonIndex = Math.floor(Math.random() * 4);
+  return validMessages[randonIndex];
+}
+
 const logKeypress = (key) => {
   // in raw-mode it's handy to see what's been typed
   // when not in raw mode, the terminal will do this for us
+  console.log(process.stdin.isRaw)
   if (process.stdin.isRaw) {
     process.stdout.write(key);
   }
@@ -25,6 +32,7 @@ const logKeypress = (key) => {
 ///////////////////////////////////////////////////////////////////////////////
 
 var message = ''; // a buffer to collect key presses
+
 
 module.exports.initialize = (callback) => {
 
@@ -40,7 +48,7 @@ module.exports.initialize = (callback) => {
       callback(key.name);
       return; // don't do any more processing on this key
     }
-    
+
     // otherwise build up a message from individual characters
     if (key && (key.name === 'return' || key.name === 'enter')) {
       // on enter, process the message
@@ -67,3 +75,6 @@ if (process.stdin.setRawMode) {
   // configure stdin for raw mode, if possible
   process.stdin.setRawMode(true);
 }
+// var res = keypress(process.stdin);
+// console.log(res)
+// console.log(process.stdin.setRawMode())
