@@ -33,7 +33,7 @@ const logKeypress = (key) => {
 
 var message = ''; // a buffer to collect key presses
 
-
+// keypressHandler.initialize(message => console.log(`Message received: ${message}`));
 module.exports.initialize = (callback) => {
 
   // setup an event handler on standard input
@@ -47,6 +47,7 @@ module.exports.initialize = (callback) => {
     if (isValidMessage(key.name)) {
       callback(key.name);
       return; // don't do any more processing on this key
+
     }
 
     // otherwise build up a message from individual characters
